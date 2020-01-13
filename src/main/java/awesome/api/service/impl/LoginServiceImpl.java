@@ -6,6 +6,7 @@ import awesome.api.service.ILoginService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.DigestUtils;
 
 @Service
 public class LoginServiceImpl implements ILoginService {
@@ -25,11 +26,9 @@ public class LoginServiceImpl implements ILoginService {
 
 	@Override
 	public String checkUser(User user) {
-        String password = user.getPassword();
+        String password= DigestUtils.md5DigestAsHex(user.getPassword().getBytes());
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
-        System.out.println("=====");
-        System.out.println(user.getName());
-        queryWrapper.eq("name", "admin");
+        queryWrapper.eq("account", user.getAccount());
         User dbUser = userMapper.selectOne(queryWrapper);
         System.out.println(dbUser);
         System.out.println(user);

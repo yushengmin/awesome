@@ -22,8 +22,7 @@ public class LoginController {
 //        System.out.println(user.getName());
 //        System.out.println(user.getPassword());
         String result=loginService.checkUser(user);
-        System.out.println(result);
-        return "123";
+        return result;
 
     }
 
