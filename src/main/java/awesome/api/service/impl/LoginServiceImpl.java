@@ -3,6 +3,8 @@ package awesome.api.service.impl;
 import awesome.api.entity.User;
 import awesome.api.mapper.UserMapper;
 import awesome.api.service.ILoginService;
+import awesome.common.Err;
+import awesome.response.ResponseCommonData;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,25 +27,32 @@ public class LoginServiceImpl implements ILoginService {
 //
 
 	@Override
-	public String checkUser(User user) {
+	public ResponseCommonData<String> checkUser(User user) {
         String password= DigestUtils.md5DigestAsHex(user.getPassword().getBytes());
+        System.out.println(DigestUtils.md5DigestAsHex("123".getBytes()));
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("account", user.getAccount());
         User dbUser = userMapper.selectOne(queryWrapper);
         System.out.println(dbUser);
         System.out.println(user);
         if (dbUser == null) {
-            return "用户不存在";
+            return new ResponseCommonData<>(Err.LOGIN_ERR_ERR);
         }
         else {
             if (dbUser.getPassword().equals(password)) {
-                return "登录成功";
+                return new ResponseCommonData<>();
             } else {
-                return "密码错误";
+                return new ResponseCommonData<>(Err.MODIFI_PASSWORD_ERR) ;
             }
         }
 
     }
+    @Override
+    public void setsession(User user){
+
+
+    }
+
 
     public static void main(String[] args) {
         LoginServiceImpl loginService=new LoginServiceImpl();
@@ -51,7 +60,6 @@ public class LoginServiceImpl implements ILoginService {
         user.setName("admin1");
         user.setPassword("admin");
         loginService.checkUser(user);
-
 
     }
 //	@Override
