@@ -1,9 +1,10 @@
+package awesome.configure;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import awesome.filter.LoginSessionInterceptor;
 
 @Configuration
 public class FilterConfig implements WebMvcConfigurer {

@@ -33,7 +33,7 @@ public class test {
         System.out.println(a);
         return "1234";
     }
-    @RequestMapping(value="/db/hello", method = RequestMethod.GET)
+    @RequestMapping(value="/api/hello", method = RequestMethod.GET)
     public String dba(){
 
         return "Hello dba";

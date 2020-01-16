@@ -1,8 +1,11 @@
+package awesome.filter;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,7 +14,8 @@ import java.io.IOException;
 
 
 @Component
-public class LoginSessionInterceptor implements HandlerInterceptor
+//public class LoginSessionInterceptor implements HandlerInterceptor
+public class LoginSessionInterceptor extends HandlerInterceptorAdapter
 {
     @Autowired
     private StringRedisTemplate redisTemplate;
