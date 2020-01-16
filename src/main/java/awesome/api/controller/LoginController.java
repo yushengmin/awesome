@@ -29,8 +29,10 @@ public class LoginController {
         ResponseCommonData responseCommonData=loginService.checkUser(user);
         if (responseCommonData.getStatus()==0){
             HttpSession session=request.getSession();
-            session.setAttribute("loginUserId",user.getUserId());
-            redisTemplate.opsForValue().set("admin1",session.getId());
+            session.setAttribute("loginUserId",user.getAccount());
+            System.out.println("++++++++++++++++");
+            System.out.println(user.getAccount());
+            redisTemplate.opsForValue().set("loginUser:"+"admin1",session.getId());
         }
         return responseCommonData;
     }

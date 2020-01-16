@@ -3,14 +3,13 @@ package awesome.api.controller;
 
 import awesome.api.entity.User;
 import awesome.api.service.impl.UserServiceImpl;
-import awesome.response.ResponseCommonData;
+import awesome.response.ResponseCommonData2;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,8 +27,8 @@ public class UserController {
     UserServiceImpl userService;
 
     @RequestMapping(value="/userlist", method = RequestMethod.GET)
-    public ResponseCommonData<List<User>> userList(){
+    public ResponseCommonData2<List<User>> userList(){
         List<User> list=userService.list();
-        return new ResponseCommonData<List<User>>(list);
+        return new ResponseCommonData2<List<User>>(list);
     }
 }

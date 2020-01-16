@@ -8,53 +8,64 @@ import awesome.common.Err;
 public class ResponseCommonData<T> {
 
     private int status;
-    private int errCode;
+    private boolean islogin;
     private String msg;
     private T data;
 
     public ResponseCommonData(T data) {
         this.status = Code.API_STATUS_NAOMAL;
+        this.islogin=true;
         this.data = data;
     }
 
     public ResponseCommonData() {
         this.status = Code.API_STATUS_NAOMAL;
+        this.islogin=true;
         this.data = null;
     }
 
     public ResponseCommonData(Err err) {
-        this.status = Code.API_STATUS_ERROR;
-        this.errCode = err.getErrCode();
+        this.status =err.getErrCode();
         this.msg = err.getErrMsg();
+        this.islogin=true;
+
     }
-    
+
     public ResponseCommonData(ApiServiceException e) {
         this.status = Code.API_STATUS_ERROR;
-        this.errCode = e.getErrCode();
         this.msg = e.getErrMsg();
-    }
-    
+        this.islogin=true;
 
-    public ResponseCommonData(int errCode, String errMsg) {
-        this.status = Code.API_STATUS_ERROR;
-        this.errCode = errCode;
-        this.msg = errMsg;
     }
 
-    public int getErrCode() {
-        return errCode;
+    public ResponseCommonData(int status, String msg) {
+        this.status = status;
+        this.msg = msg;
+        this.islogin=true;
     }
 
-    public void setErrCode(int errCode) {
-        this.errCode = errCode;
+    public int getStatus() {
+        return status;
     }
 
-    public String getErrMsg() {
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public boolean isIslogin() {
+        return islogin;
+    }
+
+    public void setIslogin(boolean islogin) {
+        this.islogin = islogin;
+    }
+
+    public String getMsg() {
         return msg;
     }
 
-    public void setErrMsg(String errMsg) {
-        this.msg = errMsg;
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 
     public T getData() {
@@ -65,16 +76,12 @@ public class ResponseCommonData<T> {
         this.data = data;
     }
 
-    public int getStatus() {
-		return status;
-	}
-
-	@Override
+    @Override
     public String toString() {
-        return "ResponseCommonData{" +
+        return "ResponseCommonData1{" +
                 "status=" + status +
-                ", errCode=" + errCode +
-                ", errMsg='" + msg + '\'' +
+                ", islogin=" + islogin +
+                ", msg='" + msg + '\'' +
                 ", data=" + data +
                 '}';
     }
