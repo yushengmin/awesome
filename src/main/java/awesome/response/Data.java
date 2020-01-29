@@ -1,4 +1,4 @@
-package awesome.utils;
+package awesome.response;
 
 import java.util.ArrayList;
 

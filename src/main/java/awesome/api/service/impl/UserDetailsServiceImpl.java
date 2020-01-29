@@ -35,7 +35,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		QueryWrapper<Users> queryWrapper = new QueryWrapper<>();
 		queryWrapper.eq("username", username);
 		Users dbUser = sysUserMapper.selectOne(queryWrapper);
+//		System.out.println(dbUser.getPassword());
 		if (Objects.nonNull(dbUser)) {
+
 			return User.withUsername(username).password(dbUser.getPassword())
 					.authorities(AuthorityUtils.NO_AUTHORITIES)
 					.build();

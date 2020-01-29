@@ -1,49 +1,40 @@
 package awesome.response;
 
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import io.swagger.annotations.ApiModelProperty;
+public class ResponseCommonData2 {
 
-@JsonSerialize(include= JsonSerialize.Inclusion.NON_NULL)
-public class ResponseCommonData<T> {
     private int status;
     private boolean islogin;
     private String msg;
-    private T data;
+    private Data data;
 
-    public ResponseCommonData(T data) {
+    public ResponseCommonData2(Data data) {
         this.status = Code.API_STATUS_NAOMAL;
         this.islogin=true;
         this.data = data;
     }
 
-    public ResponseCommonData() {
+    public ResponseCommonData2() {
         this.status = Code.API_STATUS_NAOMAL;
         this.islogin=true;
         this.data = null;
     }
 
-    public ResponseCommonData(Err err) {
+    public ResponseCommonData2(Err err) {
         this.status =err.getErrCode();
         this.msg = err.getErrMsg();
         this.islogin=true;
 
     }
 
-    public ResponseCommonData(ApiServiceException e) {
+    public ResponseCommonData2(ApiServiceException e) {
         this.status = Code.API_STATUS_ERROR;
         this.msg = e.getErrMsg();
         this.islogin=true;
 
     }
 
-    public ResponseCommonData(String msg) {
-        this.status = Code.API_STATUS_NAOMAL;
-        this.msg = msg;
-        this.islogin=true;
-    }
-
-    public ResponseCommonData( int status,String msg) {
+    public ResponseCommonData2(int status, String msg) {
         this.status = status;
         this.msg = msg;
         this.islogin=true;
@@ -73,11 +64,11 @@ public class ResponseCommonData<T> {
         this.msg = msg;
     }
 
-    public T getData() {
+    public Data getData() {
         return data;
     }
 
-    public void setData(T data) {
+    public void setData(Data data) {
         this.data = data;
     }
 

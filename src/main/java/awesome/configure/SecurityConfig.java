@@ -21,6 +21,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -42,8 +43,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //    private MyPasswordEncoder myPasswordEncoder;
 
     @Bean
-    PasswordEncoder passwordEncoder(){
-        return NoOpPasswordEncoder.getInstance();
+    public BCryptPasswordEncoder bcryptPasswordEncoder(){
+        return new BCryptPasswordEncoder();
     }
 
 
@@ -108,7 +109,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     map.put("status",200);
                     map.put("msg","登录成功");
                     map.put("data",authentication);
-                    map.put("islogin","false");
+                    map.put("islogin","true");
                     response.setContentType("application/json;charset=utf-8");
                     PrintWriter out = response.getWriter();
                     out.write(objectMapper.writeValueAsString(map));
@@ -162,7 +163,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
         //对默认的UserDetailsService进行覆盖
         authenticationProvider.setUserDetailsService(myCustomUserService);
-        authenticationProvider.setPasswordEncoder(passwordEncoder());
+        authenticationProvider.setPasswordEncoder(bcryptPasswordEncoder());
         return authenticationProvider;
     }
 
