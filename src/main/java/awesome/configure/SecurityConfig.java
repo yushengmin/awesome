@@ -63,12 +63,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //未登录时，进行json格式的提示，很喜欢这种写法，不用单独写一个又一个的类
                 .authenticationEntryPoint((request,response,authException) -> {
                     response.setContentType("application/json;charset=utf-8");
-                    response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                    response.setStatus(HttpServletResponse.SC_OK);
                     PrintWriter out = response.getWriter();
                     Map<String,Object> map = new HashMap<String,Object>();
                     map.put("status",-1);
                     map.put("msg","未登录");
-                    map.put("islogin","false");
+                    map.put("islogin",false);
                     out.write(objectMapper.writeValueAsString(map));
                     out.flush();
                     out.close();
@@ -86,10 +86,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //登录失败，返回json
                 .failureHandler((request,response,ex) -> {
                     response.setContentType("application/json;charset=utf-8");
-                    response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                    response.setStatus(HttpServletResponse.SC_OK);
                     PrintWriter out = response.getWriter();
                     Map<String,Object> map = new HashMap<String,Object>();
-                    map.put("status",401);
+                    map.put("status",200);
                     if (ex instanceof UsernameNotFoundException || ex instanceof BadCredentialsException) {
                         map.put("msg","用户名或密码错误");
                     } else if (ex instanceof DisabledException) {
@@ -97,7 +97,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     } else {
                         map.put("msg","登录失败!");
                     }
-                    map.put("islogin","false");
+                    map.put("islogin",false);
 
                     out.write(objectMapper.writeValueAsString(map));
                     out.flush();
@@ -109,7 +109,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     map.put("status",200);
                     map.put("msg","登录成功");
                     map.put("data",authentication);
-                    map.put("islogin","true");
+                    map.put("islogin",true);
                     response.setContentType("application/json;charset=utf-8");
                     PrintWriter out = response.getWriter();
                     out.write(objectMapper.writeValueAsString(map));
@@ -121,12 +121,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //没有权限，返回json
                 .accessDeniedHandler((request,response,ex) -> {
                     response.setContentType("application/json;charset=utf-8");
-                    response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                    response.setStatus(HttpServletResponse.SC_OK);
                     PrintWriter out = response.getWriter();
                     Map<String,Object> map = new HashMap<String,Object>();
                     map.put("status",403);
                     map.put("msg", "权限不足");
-                    map.put("islogin","t");
+                    map.put("islogin",true);
                     out.write(objectMapper.writeValueAsString(map));
                     out.flush();
                     out.close();

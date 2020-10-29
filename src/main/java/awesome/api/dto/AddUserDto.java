@@ -2,22 +2,28 @@ package awesome.api.dto;
 
 import awesome.api.entity.Users;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
-public class AddUser extends Users {
-
+public class AddUserDto extends Users {
+    @NotBlank(message = "账户不能为空")
     private String username;
-
+    
     @NotBlank(message = "密码不能为空")
     private String password;
-
+    
+    @NotBlank(message = "名称不能为空")
     private String name;
-
+    
+    @NotBlank(message = "邮箱不能为空")
+    @Email(message = "邮箱格式错误")
     private String email;
-
+    
+    @NotBlank(message = "手机号不能为空")
     private String phone;
-
-    private Boolean disable;
+    
+//    @NotBlank(message = "状态不能为空")
+//    private Boolean disable;
 
     @Override
     public String getUsername() {
@@ -69,15 +75,9 @@ public class AddUser extends Users {
         this.phone = phone;
     }
 
-    @Override
-    public Boolean getDisable() {
-        return disable;
-    }
 
-    @Override
-    public void setDisable(Boolean disable) {
-        this.disable = disable;
-    }
+
+
 
     @Override
     public String toString() {
@@ -87,7 +87,6 @@ public class AddUser extends Users {
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
-                ", disable=" + disable +
                 '}';
     }
 }
