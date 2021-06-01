@@ -43,7 +43,8 @@ class AwesomeApplicationTests {
 //
 //        }
 //        ResponseCommonData<List<UserRoleDto>> responseCommonData=new  ResponseCommonData<List<UserRoleDto>>(rolealllist2);
-//        System.out.println(responseCommonData);
+//        System.out.println();
+
 
 
         List<Object> listObect = new ArrayList<>();
@@ -53,5 +54,10 @@ class AwesomeApplicationTests {
         System.out.println(listString);
 
     }
+
+
+
+
+
 
 }
